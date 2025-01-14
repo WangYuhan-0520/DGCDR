@@ -1,0 +1,9 @@
+gpu_id: 0
+embedding_size: 64
+temp: 0.2
+drop_rate: 0.4
+ssl_weight: 0.001
+n_layers: 3
+reg_weight: 1e-3
+
+A_split: False  # 将邻接矩阵A分割成多个子矩阵并转换为稀疏张量。处理大规模图时为True可以节省内存并提高计算效率，需要设置folds数（每一段子矩阵的行数）

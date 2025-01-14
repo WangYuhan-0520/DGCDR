@@ -1,0 +1,13 @@
+gpu_id: 0
+embedding_size: 64
+
+n_layers: 3
+reg_weight: 1e-3
+lambda_source: 0.8
+lambda_target: 0.8
+connect_way: concat
+drop_rate: 0.1
+is_transfer: True
+
+train_neg_sample_args: None    #if: loss=CE; else: comment this line!
+

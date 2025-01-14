@@ -1,0 +1,35 @@
+#state: "DEBUG"
+learning_rate: 0.0001
+
+gpu_id: 0
+embedding_size: 64  # (int) the embedding size
+mlp_hidden_size: [256]  # (int) hidden size of feature mapping
+loss_type: BPR  # (str) BPR:InputType.PAIRWISE; BCE:input_type = InputType.POINTWISE
+#train_neg_sample_args: None    #if: loss=CE; else: comment this line
+
+
+cl_sim_weight: 0.01  # (float) weights of similarity terms in encoder loss
+cl_org_weight: 1  # (float) weights of orthogonality terms in encoder loss
+cl_decoder_weight: 0.01  # (float) weights of decoder loss
+item_cl_weight: 0.01  # (float) weights of item disentanglement loss
+drop_rate: 0.1  # (float) the dropout rate
+n_layers: 3  # (int) the layer num of GCN
+reg_weight: 1e-3  # (float) the weight decay for l2 normalization
+connect_way: concat  # (str) the connecting way for all GCN layers: concat;mean
+feature_mapping_way: 'projection' # (str) way of feature separation in encoder and mapping network in decoder. projection/ mlp (for comparison).
+temperature: 0.3  # (float) temperature of contrastive Loss
+
+fuse_mode: attention  # (str) feature fusion of domain-common & -specific & -gnn
+attention_mode: all  # (str) when fuse_mode=attention, part:just common&specific, all: gn n_emb&common&specific
+concat_mode: part  # (str) when fuse_mode=concat, part:just common||specific, all: GNN_emb||common||specific
+
+activation_func: leakyrelu  # (str) type of activation function when feature_mapping_way = mlp
+init_way: xavier  # (str) parameter initialization, e.g., xavier
+item_mapping: False  # (bool) whether to use a non-linear mapping for item
+item_negative: True  # (bool) whether to apply item contrastive disentanglement
+item_disentangle: True  # (bool) whether to apply disentanglement and fusion to item
+preference_disentangle: True  # (bool) whether to disentangle features after GNN
+
+
+
+

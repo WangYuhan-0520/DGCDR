@@ -1,0 +1,6 @@
+embedding_size: 64
+base_model: NeuMF
+mlp_hidden_size: [32, 16]
+dropout_prob: 0.3
+alpha: 0.3
+gpu_id: 0

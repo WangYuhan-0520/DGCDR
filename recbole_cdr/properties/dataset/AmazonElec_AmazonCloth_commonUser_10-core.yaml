@@ -1,0 +1,66 @@
+seed: 2022
+field_separator: "\t"
+#save_dataloaders: True
+#save_dataset: True
+embedding_size: 64
+learning_rate: 0.001
+
+
+eval_args:
+#  split: { 'LS': 'valid_and_test' }  #leave-one-out data splitting
+  split: {'RS':[0.6,0.2,0.2]}
+  split_valid: {'RS': [0.8,0.2]}  # The source domain is split by 8:2 for training and validation for fair comparisons with some previous CDR methods with source phases.
+  group_by: user
+  order: RO
+  mode: full
+repeatable: True
+metrics: [ "MRR", "Recall","NDCG","Hit"]
+topk: [20]
+valid_metric: Recall@20
+
+# Training settings
+epochs: 400
+train_batch_size: 4096
+eval_batch_size: 40960
+
+#train_neg_sample_args: None
+
+source_domain:
+  dataset: AmazonElec_AmazonCloth_commonUser_10-core
+  data_path: './dataset/'
+  USER_ID_FIELD: user_id
+  ITEM_ID_FIELD: item_id
+  RATING_FIELD: rating
+  TIME_FIELD: timestamp
+  NEG_PREFIX: neg_
+  LABEL_FIELD: label
+  threshold:
+    rating: 4                    # (dict) 0/1 labels will be generated according to the pairs.
+  load_col:
+    inter: [user_id, item_id, rating]
+  user_inter_num_interval: "[0,inf)"
+  item_inter_num_interval: "[0,inf)"
+  val_interval:
+    rating: "[0,inf)"
+  drop_filter_field: True
+
+target_domain:
+  dataset: AmazonCloth_AmazonElec_commonUser_10-core
+  data_path: './dataset/'
+  USER_ID_FIELD: user_id
+  ITEM_ID_FIELD: item_id
+  RATING_FIELD: rating
+  TIME_FIELD: timestamp
+  NEG_PREFIX: neg_
+  LABEL_FIELD: label
+  threshold:
+    rating: 4                    # (dict) 0/1 labels will be generated according to the pairs.
+  load_col:
+    inter: [user_id, item_id, rating]
+  user_inter_num_interval: "[0,inf)"
+  item_inter_num_interval: "[0,inf)"
+  val_interval:
+    rating: "[0,inf)"
+  drop_filter_field: True
+
+
